@@ -1478,7 +1478,7 @@ var etro = (function () {
             var fontSize = 20;
             // Calcule les dimensions et position du fond
             var padding = 5;
-            var rectWidth = 100 + padding * 2;
+            var rectWidth = textWidth + padding * 2;
             var rectHeight = fontSize + padding * 2;
             var rectX = val(this, 'textX', this.currentTime) - 50;
             var rectY = val(this, 'textY', this.currentTime) - fontSize - padding;

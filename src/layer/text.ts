@@ -106,7 +106,7 @@ class Text extends Visual {
     const fontSize = 20
     // Calcule les dimensions et position du fond
     const padding = 5;
-    const rectWidth = 100 + padding * 2;
+    const rectWidth = textWidth + padding * 2;
     const rectHeight = fontSize + padding * 2;
     const rectX = val(this, 'textX', this.currentTime) - 50;
     const rectY = val(this, 'textY', this.currentTime) - fontSize - padding;
