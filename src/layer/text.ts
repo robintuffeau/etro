@@ -114,7 +114,7 @@ class Text extends Visual {
     const textStroke = val(this, 'textStroke', this.currentTime)
     if (textStroke) {
       this.cctx.strokeStyle = textStroke.color
-      this.cctx.miterLimit = -2
+      this.cctx.miterLimit = 2
       this.cctx.lineJoin = "round"
       this.cctx.lineWidth = textStroke.thickness ?? 1
       const position = textStroke.position ?? 'outer'

@@ -1481,7 +1481,7 @@ var Text = /** @class */ (function (_super) {
         var textStroke = val(this, 'textStroke', this.currentTime);
         if (textStroke) {
             this.cctx.strokeStyle = textStroke.color;
-            this.cctx.miterLimit = -2;
+            this.cctx.miterLimit = 2;
             this.cctx.lineJoin = "round";
             this.cctx.lineWidth = (_a = textStroke.thickness) !== null && _a !== void 0 ? _a : 1;
             var position = (_b = textStroke.position) !== null && _b !== void 0 ? _b : 'outer';
