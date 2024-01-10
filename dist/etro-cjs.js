@@ -1477,10 +1477,10 @@ var Text = /** @class */ (function (_super) {
         var fontSize = 20;
         // Calcule les dimensions et position du fond
         var padding = 5;
-        var rectWidth = textWidth + padding * 2;
+        var rectWidth = textWidth * 2 + padding * 2;
         var rectHeight = fontSize + padding * 2;
         var rectX = val(this, 'textX', this.currentTime) - 50;
-        var rectY = val(this, 'textY', this.currentTime) - fontSize - padding;
+        var rectY = val(this, 'textY', this.currentTime) - padding;
         this.cctx.fillStyle = 'red';
         this.cctx.beginPath();
         this.cctx.moveTo(rectX + 5, rectY);
