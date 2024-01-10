@@ -23,7 +23,7 @@ export default [
       typescript(),
       resolve()
     ]
-  }
+  },
   // // es6 module bundle
   // {
   //     input: "src/index.js",
