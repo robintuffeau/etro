@@ -111,6 +111,27 @@ class Text extends Visual {
       maxWidth
     )
 
+    const textWidth = this.cctx.measureText(text).width;
+    const fontSize = 20
+    // Calcule les dimensions et position du fond
+    const padding = 5;
+    const rectWidth = textWidth + padding * 2;
+    const rectHeight = fontSize + padding * 2;
+    const rectX = val(this, 'textX', this.currentTime) - padding;
+    const rectY = val(this, 'textY', this.currentTime) - fontSize - padding;
+
+    // Dessine un rectangle arrondi
+    this.cctx.fillStyle = 'red';
+    this.cctx.beginPath();
+    this.cctx.moveTo(rectX + 5, rectY);
+    this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, 5);
+    this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, 5);
+    this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, 5);
+    this.cctx.arcTo(rectX, rectY, rectX + rectWidth, rectY, 5);
+    this.cctx.closePath();
+    this.cctx.fill();
+
+
     const textStroke = val(this, 'textStroke', this.currentTime)
     if (textStroke) {
       this.cctx.strokeStyle = textStroke.color
