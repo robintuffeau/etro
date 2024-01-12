@@ -111,7 +111,7 @@ class Text extends Visual {
 
     this.cctx.font = font;
     const textWidth = this.cctx.measureText(text).width;
-    const metrics = this.cctx.measureText(text)
+    const metrics = this.cctx.measureText(val(this, 'text', 0))
     let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
     const fontSize = val(this, 'fontSize', this.currentTime);
