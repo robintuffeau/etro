@@ -1483,7 +1483,7 @@ var Text = /** @class */ (function (_super) {
             var textX = val(this, 'textX', this.currentTime);
             var textY = val(this, 'textY', this.currentTime);
             var rectX = textX - rectWidth / 2;
-            var rectY = textY - fontSize / 2 - padding;
+            var rectY = textY - fontSize / 2 - (padding / 2);
             this.cctx.fillStyle = textBackground;
             this.cctx.beginPath();
             this.cctx.moveTo(rectX + padding, rectY);
