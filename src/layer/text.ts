@@ -111,6 +111,9 @@ class Text extends Visual {
 
     this.cctx.font = font;
     const textWidth = this.cctx.measureText(text).width;
+    const metrics = this.cctx.measureText(text)
+    let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
     const fontSize = val(this, 'fontSize', this.currentTime);
 
 
@@ -126,7 +129,7 @@ class Text extends Visual {
       const textX = val(this, 'textX', this.currentTime);
       const textY = val(this, 'textY', this.currentTime);
       const rectX = textX - rectWidth / 2;
-      const rectY = textY - fontSize / 2 - (padding / 1.7);
+      const rectY = textY - fontSize / 2 - padding - actualHeight ;
 
       this.cctx.fillStyle = textBackground;
       this.cctx.beginPath();

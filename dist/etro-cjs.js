@@ -1471,6 +1471,8 @@ var Text = /** @class */ (function (_super) {
         var maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
         this.cctx.font = font;
         var textWidth = this.cctx.measureText(text).width;
+        var metrics = this.cctx.measureText(text);
+        var actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
         var fontSize = val(this, 'fontSize', this.currentTime);
         var textBackground = val(this, 'textBackground', this.currentTime);
         var padding = val(this, 'padding', this.currentTime);
@@ -1483,7 +1485,7 @@ var Text = /** @class */ (function (_super) {
             var textX = val(this, 'textX', this.currentTime);
             var textY = val(this, 'textY', this.currentTime);
             var rectX = textX - rectWidth / 2;
-            var rectY = textY - fontSize / 2 - (padding / 1.7);
+            var rectY = textY - fontSize / 2 - padding - actualHeight;
             this.cctx.fillStyle = textBackground;
             this.cctx.beginPath();
             this.cctx.moveTo(rectX + padding, rectY);
