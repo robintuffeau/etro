@@ -11,6 +11,9 @@ interface TextOptions extends VisualOptions {
   text: Dynamic<string>
   font?: Dynamic<string>
   color?: Dynamic<Color>
+  background?: Dynamic<Color>
+  padding?: Dynamic<number>
+  radius?: Dynamic<number>
   /** The text's horizontal offset from the layer */
   textX?: Dynamic<number>
   /** The text's vertical offset from the layer */
@@ -104,30 +107,37 @@ class Text extends Visual {
     const textWidth = this.cctx.measureText(text).width;
     const fontSize = 20;
 
-// Dimensions et position du fond ajustées
-    const padding = 5;
-    const rectWidth = textWidth + padding * 2;
-    const rectHeight = fontSize + padding * 2;
 
-// Positionnement centré pour le fond
-    const rectX = val(this, 'textX', this.currentTime) - rectWidth / 2;
-    const rectY = val(this, 'textY', this.currentTime) - rectHeight / 2;
 
-// Dessin du fond centré
-    this.cctx.fillStyle = 'red';
-    this.cctx.beginPath();
-    this.cctx.moveTo(rectX + 5, rectY);
-    this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, 5);
-    this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, 5);
-    this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, 5);
-    this.cctx.arcTo(rectX, rectY, rectX + rectWidth, rectY, 5);
-    this.cctx.closePath();
-    this.cctx.fill();
+    const background = val(this, 'background', this.currentTime)
+    const padding = val(this, 'padding', this.currentTime)
+    const radius = val(this, 'radius', this.currentTime)
+    if (background) {
+      // Calcule les dimensions et position du fond
+      const rectWidth = textWidth + padding * 2;
+      const rectHeight = fontSize + padding * 2;
+      // Centre le fond par rapport au point de dessin du texte
+      const textX = val(this, 'textX', this.currentTime);
+      const textY = val(this, 'textY', this.currentTime);
+      const rectX = textX - rectWidth / 2;
+      const rectY = textY - fontSize / 2 - padding;
+
+      this.cctx.fillStyle = background;
+      this.cctx.beginPath();
+      this.cctx.moveTo(rectX + 5, rectY);
+      this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, radius);
+      this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, radius);
+      this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, radius);
+      this.cctx.arcTo(rectX, rectY, rectX + rectWidth, rectY, radius);
+      this.cctx.closePath();
+      this.cctx.fill();
+    }
+
 
 
 // Dessin du texte
     this.cctx.fillStyle = val(this, 'color', this.currentTime);
-    this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
+    this.cctx.textAlign = 'center';
     this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
     this.cctx.direction = val(this, 'textDirection', this.currentTime);
     this.cctx.fillText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
@@ -200,6 +210,8 @@ class Text extends Visual {
     return {
       ...Visual.prototype.getDefaultOptions(),
       background: null,
+      padding: 0,
+      radius: 0,
       text: undefined, // required
       font: '10px sans-serif',
       color: parseColor('#fff'),
