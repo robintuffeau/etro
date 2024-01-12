@@ -16,6 +16,7 @@ interface TextOptions extends VisualOptions {
   textBackground?: Dynamic<Color>
   padding?: Dynamic<number>
   radius?: Dynamic<number>
+  lineHeight?: Dynamic<number>
   /** The text's horizontal offset from the layer */
   textX?: Dynamic<number>
   /** The text's vertical offset from the layer */
@@ -51,6 +52,7 @@ class Text extends Visual {
   textBackground: Dynamic<Color>
   padding: Dynamic<number>
   radius: Dynamic<number>
+  lineHeight: Dynamic<number>
   /** The text's horizontal offset from the layer */
   textX: Dynamic<number>
   /** The text's vertical offset from the layer */
@@ -116,6 +118,7 @@ class Text extends Visual {
 
 
     const textBackground = val(this, 'textBackground', this.currentTime)
+    const lineHeight = val(this, 'lineHeight', this.currentTime);
     const padding = val(this, 'padding', this.currentTime)
     const radius = val(this, 'radius', this.currentTime)
     if (textBackground) {
@@ -126,7 +129,7 @@ class Text extends Visual {
       const textX = val(this, 'textX', this.currentTime);
       const textY = val(this, 'textY', this.currentTime);
       const rectX = textX - rectWidth / 2;
-      const rectY = textY - ((fontSize * 1.4) - fontSize) - padding / 2;
+      const rectY = textY - ((fontSize * lineHeight) - fontSize) - padding / 2;
 
       this.cctx.fillStyle = textBackground;
       this.cctx.beginPath();
@@ -224,6 +227,7 @@ class Text extends Visual {
       textBackground: parseColor('#fff'),
       color: parseColor('#fff'),
       textX: 0,
+      lineHeight: 1,
       textY: 0,
       maxWidth: null,
       textAlign: 'start',

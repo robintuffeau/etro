@@ -1473,6 +1473,7 @@ var Text = /** @class */ (function (_super) {
         var textWidth = this.cctx.measureText(text).width;
         var fontSize = val(this, 'fontSize', this.currentTime);
         var textBackground = val(this, 'textBackground', this.currentTime);
+        var lineHeight = val(this, 'lineHeight', this.currentTime);
         var padding = val(this, 'padding', this.currentTime);
         var radius = val(this, 'radius', this.currentTime);
         if (textBackground) {
@@ -1483,7 +1484,7 @@ var Text = /** @class */ (function (_super) {
             var textX = val(this, 'textX', this.currentTime);
             var textY = val(this, 'textY', this.currentTime);
             var rectX = textX - rectWidth / 2;
-            var rectY = textY - ((fontSize * 1.4) - fontSize) - padding / 2;
+            var rectY = textY - ((fontSize * lineHeight) - fontSize) - padding / 2;
             this.cctx.fillStyle = textBackground;
             this.cctx.beginPath();
             this.cctx.moveTo(rectX + padding, rectY);
@@ -1552,7 +1553,7 @@ var Text = /** @class */ (function (_super) {
      * @deprecated See {@link https://github.com/etro-js/etro/issues/131}
      */
     Text.prototype.getDefaultOptions = function () {
-        return __assign(__assign({}, Visual.prototype.getDefaultOptions()), { background: null, padding: 0, radius: 0, fontSize: 16, text: undefined, font: '10px sans-serif', textBackground: parseColor('#fff'), color: parseColor('#fff'), textX: 0, textY: 0, maxWidth: null, textAlign: 'start', textBaseline: 'top', textDirection: 'ltr', textStroke: null });
+        return __assign(__assign({}, Visual.prototype.getDefaultOptions()), { background: null, padding: 0, radius: 0, fontSize: 16, text: undefined, font: '10px sans-serif', textBackground: parseColor('#fff'), color: parseColor('#fff'), textX: 0, lineHeight: 1, textY: 0, maxWidth: null, textAlign: 'start', textBaseline: 'top', textDirection: 'ltr', textStroke: null });
     };
     return Text;
 }(Visual));
