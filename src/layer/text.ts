@@ -13,6 +13,7 @@ interface TextOptions extends VisualOptions {
   font?: Dynamic<string>
   color?: Dynamic<Color>
   background?: Dynamic<Color>
+  textBackground?: Dynamic<Color>
   padding?: Dynamic<number>
   radius?: Dynamic<number>
   /** The text's horizontal offset from the layer */
@@ -47,7 +48,7 @@ class Text extends Visual {
   font: Dynamic<string>
   color: Dynamic<Color>
   fontSize: Dynamic<number>
-  background: Dynamic<Color>
+  textBackground: Dynamic<Color>
   padding: Dynamic<number>
   radius: Dynamic<number>
   /** The text's horizontal offset from the layer */
@@ -114,10 +115,10 @@ class Text extends Visual {
 
 
 
-    const background = val(this, 'background', this.currentTime)
+    const textBackground = val(this, 'textBackground', this.currentTime)
     const padding = val(this, 'padding', this.currentTime)
     const radius = val(this, 'radius', this.currentTime)
-    if (background) {
+    if (textBackground) {
       // Calcule les dimensions et position du fond
       const rectWidth = textWidth + padding * 2;
       const rectHeight = fontSize + padding * 2;
@@ -127,9 +128,9 @@ class Text extends Visual {
       const rectX = textX - rectWidth / 2;
       const rectY = textY - fontSize / 2 - padding;
 
-      this.cctx.fillStyle = background;
+      this.cctx.fillStyle = textBackground;
       this.cctx.beginPath();
-      this.cctx.moveTo(rectX + 5, rectY);
+      this.cctx.moveTo(rectX + padding, rectY);
       this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, radius);
       this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, radius);
       this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, radius);
@@ -220,6 +221,7 @@ class Text extends Visual {
       fontSize: 16,
       text: undefined, // required
       font: '10px sans-serif',
+      textBackground: parseColor('#fff'),
       color: parseColor('#fff'),
       textX: 0,
       textY: 0,

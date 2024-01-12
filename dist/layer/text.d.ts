@@ -11,6 +11,7 @@ interface TextOptions extends VisualOptions {
     font?: Dynamic<string>;
     color?: Dynamic<Color>;
     background?: Dynamic<Color>;
+    textBackground?: Dynamic<Color>;
     padding?: Dynamic<number>;
     radius?: Dynamic<number>;
     /** The text's horizontal offset from the layer */
@@ -43,7 +44,7 @@ declare class Text extends Visual {
     font: Dynamic<string>;
     color: Dynamic<Color>;
     fontSize: Dynamic<number>;
-    background: Dynamic<Color>;
+    textBackground: Dynamic<Color>;
     padding: Dynamic<number>;
     radius: Dynamic<number>;
     /** The text's horizontal offset from the layer */

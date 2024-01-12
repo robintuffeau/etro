@@ -1473,10 +1473,10 @@ var etro = (function () {
             this.cctx.font = font;
             var textWidth = this.cctx.measureText(text).width;
             var fontSize = val(this, 'fontSize', this.currentTime);
-            var background = val(this, 'background', this.currentTime);
+            var textBackground = val(this, 'textBackground', this.currentTime);
             var padding = val(this, 'padding', this.currentTime);
             var radius = val(this, 'radius', this.currentTime);
-            if (background) {
+            if (textBackground) {
                 // Calcule les dimensions et position du fond
                 var rectWidth = textWidth + padding * 2;
                 var rectHeight = fontSize + padding * 2;
@@ -1485,9 +1485,9 @@ var etro = (function () {
                 var textY = val(this, 'textY', this.currentTime);
                 var rectX = textX - rectWidth / 2;
                 var rectY = textY - fontSize / 2 - padding;
-                this.cctx.fillStyle = background;
+                this.cctx.fillStyle = textBackground;
                 this.cctx.beginPath();
-                this.cctx.moveTo(rectX + 5, rectY);
+                this.cctx.moveTo(rectX + padding, rectY);
                 this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, radius);
                 this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, radius);
                 this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, radius);
@@ -1553,7 +1553,7 @@ var etro = (function () {
          * @deprecated See {@link https://github.com/etro-js/etro/issues/131}
          */
         Text.prototype.getDefaultOptions = function () {
-            return __assign(__assign({}, Visual.prototype.getDefaultOptions()), { background: null, padding: 0, radius: 0, fontSize: 16, text: undefined, font: '10px sans-serif', color: parseColor('#fff'), textX: 0, textY: 0, maxWidth: null, textAlign: 'start', textBaseline: 'top', textDirection: 'ltr', textStroke: null });
+            return __assign(__assign({}, Visual.prototype.getDefaultOptions()), { background: null, padding: 0, radius: 0, fontSize: 16, text: undefined, font: '10px sans-serif', textBackground: parseColor('#fff'), color: parseColor('#fff'), textX: 0, textY: 0, maxWidth: null, textAlign: 'start', textBaseline: 'top', textDirection: 'ltr', textStroke: null });
         };
         return Text;
     }(Visual));
