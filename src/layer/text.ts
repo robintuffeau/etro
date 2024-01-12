@@ -95,22 +95,27 @@ class Text extends Visual {
 
   doRender (): void {
     super.doRender()
-    const text = val(this, 'text', this.currentTime); const font = val(this, 'font', this.currentTime)
-    const maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined
-    // // properties that affect metrics
-    // if (this._prevText !== text || this._prevFont !== font || this._prevMaxWidth !== maxWidth)
-    //     this._updateMetrics(text, font, maxWidth);
 
+    const text = val(this, 'text', this.currentTime);
+    const font = val(this, 'font', this.currentTime)
+    const maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
+
+    this.cctx.font = font;
     const textWidth = this.cctx.measureText(text).width;
-    console.log(textWidth)
-    const fontSize = 20
-    // Calcule les dimensions et position du fond
-    const padding = 5;
-    const rectWidth = textWidth * 2 + padding * 2;
-    const rectHeight = fontSize + padding * 2;
-    const rectX = val(this, 'textX', this.currentTime) - 50;
-    const rectY = val(this, 'textY', this.currentTime) - padding;
+    const fontSize = 20;
 
+// Calcule les dimensions et position du fond
+    const padding = 5;
+    const rectWidth = textWidth + padding * 2;
+    const rectHeight = fontSize + padding * 2;
+
+// Centre le fond par rapport au point de dessin du texte
+    const textX = val(this, 'textX', this.currentTime);
+    const textY = val(this, 'textY', this.currentTime);
+    const rectX = textX - rectWidth / 2;
+    const rectY = textY - fontSize / 2 - padding;
+
+// Dessin du fond
     this.cctx.fillStyle = 'red';
     this.cctx.beginPath();
     this.cctx.moveTo(rectX + 5, rectY);
@@ -121,20 +126,12 @@ class Text extends Visual {
     this.cctx.closePath();
     this.cctx.fill();
 
-    this.cctx.font = font
-    this.cctx.fillStyle = val(this, 'color', this.currentTime)
-    this.cctx.textAlign = val(this, 'textAlign', this.currentTime)
-    this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime)
-    this.cctx.direction = val(this, 'textDirection', this.currentTime)
-    this.cctx.fillText(
-      text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime),
-      maxWidth
-    )
-
-
-
-    // Dessine un rectangle arrondi
-
+// Dessin du texte
+    this.cctx.fillStyle = val(this, 'color', this.currentTime);
+    this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
+    this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
+    this.cctx.direction = val(this, 'textDirection', this.currentTime);
+    this.cctx.fillText(text, textX, textY, maxWidth);
 
 
     const textStroke = val(this, 'textStroke', this.currentTime)
