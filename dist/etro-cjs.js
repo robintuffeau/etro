@@ -1471,7 +1471,7 @@ var Text = /** @class */ (function (_super) {
         var maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
         this.cctx.font = font;
         var textWidth = this.cctx.measureText(text).width;
-        var fontSize = 20;
+        var fontSize = val(this, 'fontSize', this.currentTime);
         var background = val(this, 'background', this.currentTime);
         var padding = val(this, 'padding', this.currentTime);
         var radius = val(this, 'radius', this.currentTime);
@@ -1496,7 +1496,7 @@ var Text = /** @class */ (function (_super) {
         }
         // Dessin du texte
         this.cctx.fillStyle = val(this, 'color', this.currentTime);
-        this.cctx.textAlign = 'center';
+        this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
         this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
         this.cctx.direction = val(this, 'textDirection', this.currentTime);
         this.cctx.fillText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
@@ -1552,7 +1552,7 @@ var Text = /** @class */ (function (_super) {
      * @deprecated See {@link https://github.com/etro-js/etro/issues/131}
      */
     Text.prototype.getDefaultOptions = function () {
-        return __assign(__assign({}, Visual.prototype.getDefaultOptions()), { background: null, padding: 0, radius: 0, text: undefined, font: '10px sans-serif', color: parseColor('#fff'), textX: 0, textY: 0, maxWidth: null, textAlign: 'start', textBaseline: 'top', textDirection: 'ltr', textStroke: null });
+        return __assign(__assign({}, Visual.prototype.getDefaultOptions()), { background: null, padding: 0, radius: 0, fontSize: 16, text: undefined, font: '10px sans-serif', color: parseColor('#fff'), textX: 0, textY: 0, maxWidth: null, textAlign: 'start', textBaseline: 'top', textDirection: 'ltr', textStroke: null });
     };
     return Text;
 }(Visual));

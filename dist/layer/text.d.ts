@@ -7,6 +7,7 @@ declare enum TextStrokePosition {
 }
 interface TextOptions extends VisualOptions {
     text: Dynamic<string>;
+    fontSize: Dynamic<number>;
     font?: Dynamic<string>;
     color?: Dynamic<Color>;
     background?: Dynamic<Color>;
@@ -41,6 +42,10 @@ declare class Text extends Visual {
     text: Dynamic<string>;
     font: Dynamic<string>;
     color: Dynamic<Color>;
+    fontSize: Dynamic<number>;
+    background: Dynamic<Color>;
+    padding: Dynamic<number>;
+    radius: Dynamic<number>;
     /** The text's horizontal offset from the layer */
     textX: Dynamic<number>;
     /** The text's vertical offset from the layer */

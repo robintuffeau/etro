@@ -9,6 +9,7 @@ enum TextStrokePosition {
 
 interface TextOptions extends VisualOptions {
   text: Dynamic<string>
+  fontSize: Dynamic<number>
   font?: Dynamic<string>
   color?: Dynamic<Color>
   background?: Dynamic<Color>
@@ -45,6 +46,10 @@ class Text extends Visual {
   text: Dynamic<string>
   font: Dynamic<string>
   color: Dynamic<Color>
+  fontSize: Dynamic<number>
+  background: Dynamic<Color>
+  padding: Dynamic<number>
+  radius: Dynamic<number>
   /** The text's horizontal offset from the layer */
   textX: Dynamic<number>
   /** The text's vertical offset from the layer */
@@ -105,7 +110,7 @@ class Text extends Visual {
 
     this.cctx.font = font;
     const textWidth = this.cctx.measureText(text).width;
-    const fontSize = 20;
+    const fontSize = val(this, 'fontSize', this.currentTime);
 
 
 
@@ -137,7 +142,7 @@ class Text extends Visual {
 
 // Dessin du texte
     this.cctx.fillStyle = val(this, 'color', this.currentTime);
-    this.cctx.textAlign = 'center';
+    this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
     this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
     this.cctx.direction = val(this, 'textDirection', this.currentTime);
     this.cctx.fillText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
@@ -212,6 +217,7 @@ class Text extends Visual {
       background: null,
       padding: 0,
       radius: 0,
+      fontSize: 16,
       text: undefined, // required
       font: '10px sans-serif',
       color: parseColor('#fff'),
