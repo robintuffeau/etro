@@ -1486,7 +1486,7 @@ var etro = (function () {
                 var textX = val(this, 'textX', this.currentTime);
                 var textY = val(this, 'textY', this.currentTime);
                 var rectX = textX - rectWidth / 2;
-                var rectY = textY - 1.2 - padding / 2;
+                var rectY = textY - (((fontSize * 1.2) - fontSize) / 2) - padding / 2;
                 this.cctx.fillStyle = textBackground;
                 this.cctx.beginPath();
                 this.cctx.moveTo(rectX + padding, rectY);
