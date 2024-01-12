@@ -126,7 +126,7 @@ class Text extends Visual {
       const textX = val(this, 'textX', this.currentTime);
       const textY = val(this, 'textY', this.currentTime);
       const rectX = textX - rectWidth / 2;
-      const rectY = textY - (((fontSize * 1.2) - fontSize) / 2) - padding / 2;
+      const rectY = textY - ((fontSize * 1.2) - fontSize) - padding / 2;
 
       this.cctx.fillStyle = textBackground;
       this.cctx.beginPath();
