@@ -1472,16 +1472,14 @@ var Text = /** @class */ (function (_super) {
         this.cctx.font = font;
         var textWidth = this.cctx.measureText(text).width;
         var fontSize = 20;
-        // Calcule les dimensions et position du fond
+        // Dimensions et position du fond ajustées
         var padding = 5;
         var rectWidth = textWidth + padding * 2;
         var rectHeight = fontSize + padding * 2;
-        // Centre le fond par rapport au point de dessin du texte
-        var textX = val(this, 'textX', this.currentTime);
-        var textY = val(this, 'textY', this.currentTime);
-        var rectX = textX - rectWidth / 2;
-        var rectY = textY - fontSize / 2 - padding;
-        // Dessin du fond
+        // Positionnement centré pour le fond
+        var rectX = val(this, 'textX', this.currentTime) - rectWidth / 2;
+        var rectY = val(this, 'textY', this.currentTime) - rectHeight / 2;
+        // Dessin du fond centré
         this.cctx.fillStyle = 'red';
         this.cctx.beginPath();
         this.cctx.moveTo(rectX + 5, rectY);
@@ -1496,7 +1494,7 @@ var Text = /** @class */ (function (_super) {
         this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
         this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
         this.cctx.direction = val(this, 'textDirection', this.currentTime);
-        this.cctx.fillText(text, textX, textY, maxWidth);
+        this.cctx.fillText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
         var textStroke = val(this, 'textStroke', this.currentTime);
         if (textStroke) {
             this.cctx.strokeStyle = textStroke.color;
