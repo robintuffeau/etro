@@ -1469,15 +1469,15 @@ var etro = (function () {
             _super.prototype.doRender.call(this);
             var text = val(this, 'text', this.currentTime);
             var font = val(this, 'font', this.currentTime);
-            var maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
-            this.cctx.font = font;
-            var textWidth = this.cctx.measureText(text).width;
-            var metrics = this.cctx.measureText(val(this, 'text', 0));
-            var actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
             var fontSize = val(this, 'fontSize', this.currentTime);
             var textBackground = val(this, 'textBackground', this.currentTime);
             var padding = val(this, 'padding', this.currentTime);
             var radius = val(this, 'radius', this.currentTime);
+            var maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
+            var textWidth = this.cctx.measureText(text).width;
+            var metrics = this.cctx.measureText(val(this, val(this, 'text', 0), 0));
+            var actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+            this.cctx.font = font;
             if (textBackground) {
                 // Calcule les dimensions et position du fond
                 var rectWidth = textWidth + padding * 2;

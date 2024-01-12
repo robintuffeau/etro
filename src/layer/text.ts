@@ -107,18 +107,17 @@ class Text extends Visual {
 
     const text = val(this, 'text', this.currentTime);
     const font = val(this, 'font', this.currentTime)
-    const maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
-
-    this.cctx.font = font;
-    const textWidth = this.cctx.measureText(text).width;
-    const metrics = this.cctx.measureText(val(this, 'text', 0))
-    let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
-
     const fontSize = val(this, 'fontSize', this.currentTime);
-
     const textBackground = val(this, 'textBackground', this.currentTime)
     const padding = val(this, 'padding', this.currentTime)
     const radius = val(this, 'radius', this.currentTime)
+    const maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
+    const textWidth = this.cctx.measureText(text).width;
+    const metrics = this.cctx.measureText(val(this, val(this, 'text', 0), 0))
+    let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+    this.cctx.font = font;
+
     if (textBackground) {
       // Calcule les dimensions et position du fond
       const rectWidth = textWidth + padding * 2;
