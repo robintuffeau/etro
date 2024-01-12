@@ -1474,7 +1474,7 @@ var Text = /** @class */ (function (_super) {
         var radius = val(this, 'radius', this.currentTime);
         var maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
         var textWidth = this.cctx.measureText(text).width;
-        var metrics = this.cctx.measureText(val(this, val(this, 'text', 0), 0));
+        var metrics = this.cctx.measureText(val(this, 'text', this.currentTime));
         var actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
         this.cctx.font = font;
         if (textBackground) {

@@ -104,7 +104,6 @@ class Text extends Visual {
 
   doRender (): void {
     super.doRender()
-
     const text = val(this, 'text', this.currentTime);
     const font = val(this, 'font', this.currentTime)
     const fontSize = val(this, 'fontSize', this.currentTime);
@@ -113,7 +112,7 @@ class Text extends Visual {
     const radius = val(this, 'radius', this.currentTime)
     const maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
     const textWidth = this.cctx.measureText(text).width;
-    const metrics = this.cctx.measureText(val(this, val(this, 'text', 0), 0))
+    const metrics = this.cctx.measureText(val(this, 'text', this.currentTime))
     let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
     this.cctx.font = font;
