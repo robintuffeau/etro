@@ -1471,31 +1471,6 @@ var etro = (function () {
             var font = val(this, 'font', this.currentTime);
             var maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
             this.cctx.font = font;
-            var textWidth = this.cctx.measureText(text).width;
-            var fontSize = val(this, 'fontSize', this.currentTime);
-            var textBackground = val(this, 'textBackground', this.currentTime);
-            var lineHeight = val(this, 'lineHeight', this.currentTime);
-            var padding = val(this, 'padding', this.currentTime);
-            var radius = val(this, 'radius', this.currentTime);
-            if (textBackground) {
-                // Calcule les dimensions et position du fond
-                var rectWidth = textWidth + padding * 2;
-                var rectHeight = fontSize + padding * 2;
-                // Centre le fond par rapport au point de dessin du texte
-                var textX = val(this, 'textX', this.currentTime);
-                var textY = val(this, 'textY', this.currentTime);
-                var rectX = textX - rectWidth / 2;
-                var rectY = textY - ((fontSize * lineHeight) - fontSize) - padding / 2;
-                this.cctx.fillStyle = textBackground;
-                this.cctx.beginPath();
-                this.cctx.moveTo(rectX + padding, rectY);
-                this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, radius);
-                this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, radius);
-                this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, radius);
-                this.cctx.arcTo(rectX, rectY, rectX + rectWidth, rectY, radius);
-                this.cctx.closePath();
-                this.cctx.fill();
-            }
             // Dessin du texte
             this.cctx.fillStyle = val(this, 'color', this.currentTime);
             this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
@@ -1525,6 +1500,31 @@ var etro = (function () {
                 }
                 this.cctx.strokeText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
                 this.cctx.globalCompositeOperation = globalCompositionOperation;
+            }
+            var textWidth = this.cctx.measureText(text).width;
+            var fontSize = val(this, 'fontSize', this.currentTime);
+            var textBackground = val(this, 'textBackground', this.currentTime);
+            var lineHeight = val(this, 'lineHeight', this.currentTime);
+            var padding = val(this, 'padding', this.currentTime);
+            var radius = val(this, 'radius', this.currentTime);
+            if (textBackground) {
+                // Calcule les dimensions et position du fond
+                var rectWidth = textWidth + padding * 2;
+                var rectHeight = fontSize + padding * 2;
+                // Centre le fond par rapport au point de dessin du texte
+                var textX = val(this, 'textX', this.currentTime);
+                var textY = val(this, 'textY', this.currentTime);
+                var rectX = textX - rectWidth / 2;
+                var rectY = textY - ((fontSize * lineHeight) - fontSize) - padding / 2;
+                this.cctx.fillStyle = textBackground;
+                this.cctx.beginPath();
+                this.cctx.moveTo(rectX + padding, rectY);
+                this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, radius);
+                this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, radius);
+                this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, radius);
+                this.cctx.arcTo(rectX, rectY, rectX + rectWidth, rectY, radius);
+                this.cctx.closePath();
+                this.cctx.fill();
             }
             this._prevText = text;
             this._prevFont = font;
