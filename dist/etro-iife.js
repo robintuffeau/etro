@@ -1477,30 +1477,6 @@ var etro = (function () {
             this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
             this.cctx.direction = val(this, 'textDirection', this.currentTime);
             this.cctx.fillText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
-            var textStroke = val(this, 'textStroke', this.currentTime);
-            if (textStroke) {
-                this.cctx.strokeStyle = textStroke.color;
-                this.cctx.miterLimit = 2;
-                this.cctx.lineJoin = "round";
-                this.cctx.lineWidth = (_a = textStroke.thickness) !== null && _a !== void 0 ? _a : 1;
-                var position = (_b = textStroke.position) !== null && _b !== void 0 ? _b : 'outer';
-                // Save the globalCompositeOperation, we have to revert it after stroking the text.
-                var globalCompositionOperation = this.cctx.globalCompositeOperation;
-                switch (position) {
-                    case TextStrokePosition.Inside:
-                        this.cctx.globalCompositeOperation = 'source-atop';
-                        this.cctx.lineWidth *= 2;
-                        break;
-                    case TextStrokePosition.Center:
-                        break;
-                    case TextStrokePosition.Outside:
-                        this.cctx.globalCompositeOperation = 'destination-over';
-                        this.cctx.lineWidth *= 2;
-                        break;
-                }
-                this.cctx.strokeText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
-                this.cctx.globalCompositeOperation = globalCompositionOperation;
-            }
             var textWidth = this.cctx.measureText(text).width;
             var fontSize = val(this, 'fontSize', this.currentTime);
             var textBackground = val(this, 'textBackground', this.currentTime);
@@ -1525,6 +1501,30 @@ var etro = (function () {
                 this.cctx.arcTo(rectX, rectY, rectX + rectWidth, rectY, radius);
                 this.cctx.closePath();
                 this.cctx.fill();
+            }
+            var textStroke = val(this, 'textStroke', this.currentTime);
+            if (textStroke) {
+                this.cctx.strokeStyle = textStroke.color;
+                this.cctx.miterLimit = 2;
+                this.cctx.lineJoin = "round";
+                this.cctx.lineWidth = (_a = textStroke.thickness) !== null && _a !== void 0 ? _a : 1;
+                var position = (_b = textStroke.position) !== null && _b !== void 0 ? _b : 'outer';
+                // Save the globalCompositeOperation, we have to revert it after stroking the text.
+                var globalCompositionOperation = this.cctx.globalCompositeOperation;
+                switch (position) {
+                    case TextStrokePosition.Inside:
+                        this.cctx.globalCompositeOperation = 'source-atop';
+                        this.cctx.lineWidth *= 2;
+                        break;
+                    case TextStrokePosition.Center:
+                        break;
+                    case TextStrokePosition.Outside:
+                        this.cctx.globalCompositeOperation = 'destination-over';
+                        this.cctx.lineWidth *= 2;
+                        break;
+                }
+                this.cctx.strokeText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
+                this.cctx.globalCompositeOperation = globalCompositionOperation;
             }
             this._prevText = text;
             this._prevFont = font;
