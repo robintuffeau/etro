@@ -1467,29 +1467,25 @@ var etro = (function () {
         Text.prototype.doRender = function () {
             var _a, _b;
             _super.prototype.doRender.call(this);
+            // Obtenez les valeurs nécessaires
             var text = val(this, 'text', this.currentTime);
             var font = val(this, 'font', this.currentTime);
             var maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
+            var textX = val(this, 'textX', this.currentTime);
+            var textY = val(this, 'textY', this.currentTime);
+            // Configuration pour le texte
             this.cctx.font = font;
-            // Dessin du texte
-            this.cctx.fillStyle = val(this, 'color', this.currentTime);
-            this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
-            this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
-            this.cctx.direction = val(this, 'textDirection', this.currentTime);
-            this.cctx.fillText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
-            var textWidth = this.cctx.measureText(text).width;
             var fontSize = val(this, 'fontSize', this.currentTime);
-            var textBackground = val(this, 'textBackground', this.currentTime);
             var lineHeight = val(this, 'lineHeight', this.currentTime);
+            var textWidth = this.cctx.measureText(text).width;
+            // Configurations pour le background
             var padding = val(this, 'padding', this.currentTime);
             var radius = val(this, 'radius', this.currentTime);
+            var textBackground = val(this, 'textBackground', this.currentTime);
             if (textBackground) {
-                // Calcule les dimensions et position du fond
+                // Calcul des dimensions et position du background
                 var rectWidth = textWidth + padding * 2;
                 var rectHeight = fontSize + padding * 2;
-                // Centre le fond par rapport au point de dessin du texte
-                var textX = val(this, 'textX', this.currentTime);
-                var textY = val(this, 'textY', this.currentTime);
                 var rectX = textX - rectWidth / 2;
                 var rectY = textY - ((fontSize * lineHeight) - fontSize) - padding / 2;
                 this.cctx.fillStyle = textBackground;
@@ -1502,34 +1498,123 @@ var etro = (function () {
                 this.cctx.closePath();
                 this.cctx.fill();
             }
+            // Configurations et dessin du textStroke
             var textStroke = val(this, 'textStroke', this.currentTime);
             if (textStroke) {
                 this.cctx.strokeStyle = textStroke.color;
-                this.cctx.miterLimit = 2;
-                this.cctx.lineJoin = "round";
                 this.cctx.lineWidth = (_a = textStroke.thickness) !== null && _a !== void 0 ? _a : 1;
+                this.cctx.lineJoin = "round";
+                this.cctx.miterLimit = 2;
                 var position = (_b = textStroke.position) !== null && _b !== void 0 ? _b : 'outer';
-                // Save the globalCompositeOperation, we have to revert it after stroking the text.
-                var globalCompositionOperation = this.cctx.globalCompositeOperation;
-                switch (position) {
-                    case TextStrokePosition.Inside:
-                        this.cctx.globalCompositeOperation = 'source-atop';
-                        this.cctx.lineWidth *= 2;
-                        break;
-                    case TextStrokePosition.Center:
-                        break;
-                    case TextStrokePosition.Outside:
-                        this.cctx.globalCompositeOperation = 'destination-over';
-                        this.cctx.lineWidth *= 2;
-                        break;
+                var globalCompositeOperation = this.cctx.globalCompositeOperation;
+                if (position === 'Inside') {
+                    this.cctx.globalCompositeOperation = 'source-atop';
+                    this.cctx.lineWidth *= 2;
                 }
-                this.cctx.strokeText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
-                this.cctx.globalCompositeOperation = globalCompositionOperation;
+                else if (position === 'Outside') {
+                    this.cctx.globalCompositeOperation = 'destination-over';
+                    this.cctx.lineWidth *= 2;
+                }
+                this.cctx.strokeText(text, textX, textY, maxWidth);
+                this.cctx.globalCompositeOperation = globalCompositeOperation;
             }
+            // Configurations et dessin du texte
+            this.cctx.fillStyle = val(this, 'color', this.currentTime);
+            this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
+            this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
+            this.cctx.direction = val(this, 'textDirection', this.currentTime);
+            this.cctx.fillText(text, textX, textY, maxWidth);
+            // Sauvegarde des états précédents (si nécessaire)
             this._prevText = text;
             this._prevFont = font;
             this._prevMaxWidth = maxWidth;
         };
+        //   doRender (): void {
+        //     super.doRender()
+        //
+        //     const text = val(this, 'text', this.currentTime);
+        //     const font = val(this, 'font', this.currentTime)
+        //     const maxWidth = this.maxWidth ? val(this, 'maxWidth', this.currentTime) : undefined;
+        //
+        //     this.cctx.font = font;
+        //
+        //     const textWidth = this.cctx.measureText(text).width;
+        //     const fontSize = val(this, 'fontSize', this.currentTime);
+        //     const textBackground = val(this, 'textBackground', this.currentTime)
+        //     const lineHeight = val(this, 'lineHeight', this.currentTime);
+        //     const padding = val(this, 'padding', this.currentTime)
+        //     const radius = val(this, 'radius', this.currentTime)
+        //     if (textBackground) {
+        //       // Calcule les dimensions et position du fond
+        //       const rectWidth = textWidth + padding * 2;
+        //       const rectHeight = fontSize + padding * 2;
+        //       // Centre le fond par rapport au point de dessin du texte
+        //       const textX = val(this, 'textX', this.currentTime);
+        //       const textY = val(this, 'textY', this.currentTime);
+        //       const rectX = textX - rectWidth / 2;
+        //       const rectY = textY - ((fontSize * lineHeight) - fontSize) - padding / 2;
+        //
+        //       this.cctx.fillStyle = textBackground;
+        //       this.cctx.beginPath();
+        //       this.cctx.moveTo(rectX + padding, rectY);
+        //       this.cctx.arcTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + rectHeight, radius);
+        //       this.cctx.arcTo(rectX + rectWidth, rectY + rectHeight, rectX, rectY + rectHeight, radius);
+        //       this.cctx.arcTo(rectX, rectY + rectHeight, rectX, rectY, radius);
+        //       this.cctx.arcTo(rectX, rectY, rectX + rectWidth, rectY, radius);
+        //       this.cctx.closePath();
+        //       this.cctx.fill();
+        //     }
+        //
+        //
+        //
+        //
+        //
+        // // Dessin du texte
+        //     this.cctx.fillStyle = val(this, 'color', this.currentTime);
+        //     this.cctx.textAlign = val(this, 'textAlign', this.currentTime);
+        //     this.cctx.textBaseline = val(this, 'textBaseline', this.currentTime);
+        //     this.cctx.direction = val(this, 'textDirection', this.currentTime);
+        //     this.cctx.fillText(text, val(this, 'textX', this.currentTime), val(this, 'textY', this.currentTime), maxWidth);
+        //
+        //
+        //
+        //
+        //     const textStroke = val(this, 'textStroke', this.currentTime)
+        //     if (textStroke) {
+        //       this.cctx.strokeStyle = textStroke.color
+        //       this.cctx.miterLimit = 2
+        //       this.cctx.lineJoin = "round"
+        //       this.cctx.lineWidth = textStroke.thickness ?? 1
+        //       const position = textStroke.position ?? 'outer'
+        //       // Save the globalCompositeOperation, we have to revert it after stroking the text.
+        //       const globalCompositionOperation = this.cctx.globalCompositeOperation
+        //       switch (position) {
+        //         case TextStrokePosition.Inside:
+        //           this.cctx.globalCompositeOperation = 'source-atop'
+        //           this.cctx.lineWidth *= 2
+        //           break
+        //         case TextStrokePosition.Center:
+        //           break
+        //         case TextStrokePosition.Outside:
+        //           this.cctx.globalCompositeOperation = 'destination-over'
+        //           this.cctx.lineWidth *= 2
+        //           break
+        //       }
+        //       this.cctx.strokeText(
+        //         text,
+        //         val(this, 'textX', this.currentTime),
+        //         val(this, 'textY', this.currentTime),
+        //         maxWidth
+        //       )
+        //       this.cctx.globalCompositeOperation = globalCompositionOperation
+        //     }
+        //
+        //
+        //
+        //     this._prevText = text
+        //     this._prevFont = font
+        //     this._prevMaxWidth = maxWidth
+        //   }
         // _updateMetrics(text, font, maxWidth) {
         //     // TODO calculate / measure for non-integer font.size values
         //     let metrics = Text._measureText(text, font, maxWidth);

@@ -1,4 +1,4 @@
-import { Dynamic, Color } from '../util';
+import { Color, Dynamic } from '../util';
 import { Visual, VisualOptions } from './visual';
 declare enum TextStrokePosition {
     Inside = 0,
